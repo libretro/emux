@@ -54,7 +54,7 @@ else
    override CFLAGS += -O3
 endif
 
-override CFLAGS += -Wall -I../include -I.. $(fpic)
+override CFLAGS += -Wall -I. -I../include -I.. $(fpic)
 
 ifeq ($(platform), qnx)
 override CFLAGS += -Wc,-std=gnu99
