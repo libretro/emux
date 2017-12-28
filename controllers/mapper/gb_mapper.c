@@ -29,7 +29,10 @@ static bool get_mapper_number(char *path, uint8_t *number);
 static void add_mapper(struct controller_instance *i, char *p, uint8_t n);
 
 /* Command-line parameters */
-static char *bootrom_path = "DMG_ROM.bin";
+/**
+ * libretro: Have DMG_ROM.bin match the naming of the other gameboy cores (dmg_boot.bin)
+ */
+static char *bootrom_path = "dmg_boot.bin";
 PARAM(bootrom_path, string, "bootrom", "gb", "GameBoy boot ROM path")
 
 static char *mbcs[] = {
