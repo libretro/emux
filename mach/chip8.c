@@ -79,6 +79,9 @@ bool chip8_init(struct machine *machine)
 	chip8_data->ram_region.data = chip8_data->ram;
 	memory_region_add(&chip8_data->ram_region);
 
+	g_ram_data = chip8_data->ram;
+	g_ram_size = RAM_SIZE;
+
 	/* Add CPU */
 	if (!cpu_add(&chip8_cpu_instance)) {
 		file_close(chip8_data->rom_file);
