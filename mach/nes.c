@@ -185,6 +185,9 @@ bool nes_init(struct machine *machine)
 	nes_data->wram_region.data = nes_data->wram;
 	memory_region_add(&nes_data->wram_region);
 
+	g_ram_data = nes_data->wram;
+	g_ram_size = WRAM_SIZE;
+
 	/* NES cart controls VRAM address lines so let the mapper handle it */
 	nes_mapper_instance.mach_data = nes_data->vram;
 

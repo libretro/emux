@@ -221,6 +221,9 @@ bool gb_init(struct machine *machine)
 	gb_data->wram_region.data = gb_data->wram;
 	memory_region_add(&gb_data->wram_region);
 
+	g_ram_data = gb_data->wram;
+	g_ram_size = WRAM_SIZE;
+
 	/* Add HRAM region */
 	gb_data->hram_region.area = &hram_area;
 	gb_data->hram_region.mops = &ram_mops;

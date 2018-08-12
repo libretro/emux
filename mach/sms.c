@@ -150,6 +150,9 @@ bool sms_init(struct machine *machine)
 	data->ram_region.data = data->ram;
 	memory_region_add(&data->ram_region);
 
+	g_ram_data = data->ram;
+	g_ram_size = RAM_SIZE;
+
 	/* Add controllers and CPU */
 	if (!controller_add(&sn76489_instance) ||
 		!controller_add(&vdp_instance) ||

@@ -18,6 +18,9 @@
 #include <util.h>
 #include <video.h>
 
+uint8_t *g_ram_data ;
+unsigned int g_ram_size ;
+
 static void machine_cleanup();
 static void machine_event(int id, enum input_type type, input_data_t *data);
 static void quit();

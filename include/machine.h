@@ -40,6 +40,8 @@ void machine_step();
 void machine_deinit();
 
 extern struct list_link *machines;
+extern uint8_t *g_ram_data ;
+extern unsigned int g_ram_size ;
 
 #endif
 
