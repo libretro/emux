@@ -1,0 +1,96 @@
+##############
+# Works on hosts Linux
+# Compile and install OSXCROSS: https://github.com/tpoechtrager/osxcross
+
+#########################
+# Check the host platform
+
+HOST_PLATFORM = linux
+ifeq ($(shell uname -a),)
+  HOST_PLATFORM = windows
+else ifneq ($(findstring MINGW,$(shell uname -a)),)
+  HOST_PLATFORM = windows
+else ifneq ($(findstring Darwin,$(shell uname -a)),)
+  HOST_PLATFORM = darwin
+else ifneq ($(findstring win,$(shell uname -a)),)
+  HOST_PLATFORM = windows
+endif
+
+#########################
+# Set the target platform
+
+TARGET_PLATFORM = ios-arm64
+
+#################
+# Toolchain setup
+
+CC  = cc
+CXX = c++
+AS  = as
+AR  = ar
+
+############
+# Extensions
+
+OBJEXT = _ios.o
+SOEXT  = _ios.dylib
+LIBEXT = _ios.a
+
+################
+# Platform setup
+
+STATIC_LINKING = 0
+platform       = ios-arm64
+PLATDEFS       = 
+PLATCFLAGS     = -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $(IOSSDK)
+PLATCXXFLAGS   = -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $(IOSSDK)
+PLATLDFLAGS    = -shared -lm -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $(IOSSDK)
+PLATLDXFLAGS   = -shared -lm -arch arm64 -marm -miphoneos-version-min=8.0 -isysroot $(IOSSDK)
+
+################
+# libretro setup
+
+RETRODEFS     = -D__LIBRETRO__
+RETROCFLAGS   =
+RETROCXXFLAGS =
+RETROLDFLAGS  =
+RETROLDXFLAGS =
+
+#################
+# Final variables
+
+DEFINES  = $(PLATDEFS) $(RETRODEFS)
+CFLAGS   = $(PLATCFLAGS) $(RETROCFLAGS) $(DEFINES) $(INCLUDES)
+CXXFLAGS = $(PLATCXXFLAGS) $(RETROCXXFLAGS) $(DEFINES) $(INCLUDES)
+LDFLAGS  = $(PLATLDFLAGS) $(RETROLDFLAGS)
+LDXFLAGS = $(PLATLDXFLAGS) $(RETROLDXFLAGS)
+
+########
+# Tuning
+
+ifneq ($(DEBUG),)
+  CFLAGS   += -O0 -g
+  CXXFLAGS += -O0 -g
+else
+  CFLAGS   += -O3 -DNDEBUG
+  CXXFLAGS += -O3 -DNDEBUG
+endif
+
+ifneq ($(LOG_PERFORMANCE),)
+  CFLAGS   += -DLOG_PERFORMANCE
+  CXXFLAGS += -DLOG_PERFORMANCE
+endif
+
+####################################
+# Variable setup for Makefile.common
+
+CORE_DIR  ?= ..
+BUILD_DIR ?= .
+INCLUDES   = 
+
+include $(BUILD_DIR)/Makefile.common
+
+###############
+# Include rules
+
+include $(BUILD_DIR)/Makefile.rules
