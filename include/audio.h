@@ -46,7 +46,7 @@ struct audio_frontend {
 	void (*deinit)(struct audio_frontend *fe);
 };
 
-bool audio_init();
+bool audio_init(struct audio_specs *specs);
 void audio_enqueue(void *buffer, int count);
 void audio_start();
 void audio_stop();
