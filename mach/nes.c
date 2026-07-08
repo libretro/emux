@@ -70,8 +70,8 @@ struct nes_data {
 	struct region wram_region;
 };
 
-static bool nes_init();
-static void nes_deinit();
+static bool nes_init(struct machine *machine);
+static void nes_deinit(struct machine *machine);
 
 /* WRAM area */
 static struct resource wram_mirror =

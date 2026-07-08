@@ -79,8 +79,8 @@ struct gb_data {
 	struct region wave_region;
 };
 
-static bool gb_init();
-static void gb_deinit();
+static bool gb_init(struct machine *machine);
+static void gb_deinit(struct machine *machine);
 
 /* VRAM area */
 static struct resource vram_area =
